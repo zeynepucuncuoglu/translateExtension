@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hover Translate Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Select Language</h2>
+    <select id="language">
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+        <!-- Add more languages as needed -->
+    </select>
+    <button id="save">Save</button>
+
+    <script>
+        // Save the selected language to Chrome storage
+        document.getElementById('save').addEventListener('click', () => {
+            const language = document.getElementById('language').value;
+            chrome.storage.sync.set({ language }, () => {
+                alert('Language saved!');
+            });
+        });
+
+        // Load the saved language from storage
+        chrome.storage.sync.get('language', (data) => {
+            document.getElementById('language').value = data.language || 'es';
+        });
+    </script>
+</body>
+</html>
